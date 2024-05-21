@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
 
-body {
+.whole {
   font-family: Arial, sans-serif;
   background-color: #f4f4f9;
   margin: 0;
@@ -34,7 +34,7 @@ body {
   right: 10px;
 }
 
-.msger {
+.chatbox {
   display: none;
   flex-direction: column;
   justify-content: space-between;
@@ -51,11 +51,11 @@ body {
   z-index: 1000;
 }
 
-.msger.open {
+.chatbox.open {
   display: flex;
 }
 
-.msger-header {
+.chat-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -68,18 +68,18 @@ body {
   position: relative;
 }
 
-.msger-header-title {
+.chat-header-title {
   display: flex;
   align-items: center;
 }
 
-.msger-header-title img {
+.chat-header-title img {
   width: 30px;
   height: 30px;
   margin-right: 10px;
 }
 
-.msger-chat {
+.chat-main {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
@@ -87,11 +87,11 @@ body {
   scrollbar-color: #ddd #fff;
 }
 
-.msger-chat::-webkit-scrollbar {
+.chat-main::-webkit-scrollbar {
   width: 8px;
 }
 
-.msger-chat::-webkit-scrollbar-thumb {
+.chat-main::-webkit-scrollbar-thumb {
   background-color: #ddd;
 }
 
@@ -157,7 +157,7 @@ body {
   color: #888;
 }
 
-.msger-inputarea {
+.chat-inputarea {
   display: flex;
   padding: 10px;
   border-top: 2px solid #ddd;
@@ -166,7 +166,7 @@ body {
   border-bottom-right-radius: 8px;
 }
 
-.msger-input {
+.chat-input {
   flex: 1;
   padding: 10px;
   border: 2px solid #ddd;
@@ -174,7 +174,7 @@ body {
   outline: none;
 }
 
-.msger-send-btn {
+.chat-send-btn {
   background: #007bff;
   border: none;
   padding: 0 15px;
@@ -186,6 +186,6 @@ body {
   transition: background 0.3s;
 }
 
-.msger-send-btn:hover {
+.chat-send-btn:hover {
   background: #0056b3;
 }
