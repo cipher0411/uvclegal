@@ -165,23 +165,43 @@
           </div>
           <div class="col-md-6">
               <div class="contact-form">
-                  <form>
-                      <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Your Name" required="required" />
+                <form id="emailForm">
+                  <h2 class="text-center mb-4">Get in touch with us</h2>
+                  <div class="row g-4">
+                    <div class="col-sm-6">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="first_name" placeholder="Name"/>
+                        <label for="first_name">First Name</label>
                       </div>
-                      <div class="form-group">
-                          <input type="email" class="form-control" placeholder="Your Email" required="required" />
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="last_name" placeholder="Name"/>
+                        <label for="last_name">Last Name</label>
                       </div>
-                      <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Subject" required="required" />
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-floating">
+                        <input  type="email"  class="form-control"  id="email"  placeholder="Email"/>
+                        <label for="email">Your Email</label>
                       </div>
-                      <div class="form-group">
-                          <textarea class="form-control" placeholder="Message" required="required" ></textarea>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-floating">
+                        <input  type="phone"  class="form-control"  id="phone"  placeholder="Phone"/>
+                        <label for="email">Your Phone Number</label>
                       </div>
-                      <div>
-                          <button class="btn" type="submit">Send Message</button>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 80px" ></textarea>
+                        <label for="message">Message</label>
                       </div>
-                  </form>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-brand" type="submit">Send Message</button>
+                    </div>
+              </form>
               </div>
           </div>
       </div>
@@ -260,6 +280,77 @@
 <script src="./js/bootstrap.bundle.min.js"></script>
 <script src="./js/owl.carousel.min.js"></script>
 <script src="./js/app.js"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Include EmailJS Library and Initialize -->
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function() {
+       emailjs.init("JVmbdCs5_CHkAXIN_"); // Replace with your EmailJS user ID
+   })();
+</script>
+
+<script>
+document.getElementById('emailForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from submitting the default way
+
+    // Collect form data
+    var firstName = document.getElementById('first_name').value;
+    var lastName = document.getElementById('last_name').value;
+    var email = document.getElementById('email').value;
+    var phone = document.getElementById('phone').value;
+    var messageContent = document.getElementById('message').value;
+
+    // Check if any field is empty
+    if (!firstName || !lastName || !email || !phone || !messageContent) {
+        // Display error message using SweetAlert
+        Swal.fire({
+            title: "Error!",
+            text: "Please fill out all fields.",
+            icon: "error"
+        });
+        return; // Stop further execution
+    }
+
+    // Set email parameters
+    var templateParams = {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        phone: phone,
+        message: messageContent
+    };
+
+    // Send email using EmailJS
+    emailjs.send('service_nt1rh5a', 'template_2087ara', templateParams)
+    .then(function(response) {
+        // Display success message using SweetAlert
+        Swal.fire({
+            title: "Success!",
+            text: "Message sent successfully.",
+            icon: "success"
+        });
+
+        // Clear the form fields and reset placeholder
+        document.getElementById('first_name').value = '';
+        document.getElementById('last_name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('message').value = '';
+        document.getElementById('message').placeholder = 'Leave a message here';
+
+        
+    }, function(error) {
+        // Display error message using SweetAlert
+        Swal.fire({
+            title: "Error!",
+            text: "Failed to book consultation: " + JSON.stringify(error),
+            icon: "error"
+        });
+    });
+});
+</script>
 
 </body>
 </html>

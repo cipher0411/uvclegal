@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://kit.fontawesome.com/07428bd88.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/chatbot.css"> 
+    <title>Law Web</title>
+  </head>
+
+  <body>
+    <button id="openChatBtn" onclick="openChat()">💬</button>
+    <section class="msger" id="chatbox">
+      <header class="msger-header">
+        <div class="msger-header-title">
+          <img src="./img/chatbot.png" alt="" srcset="">
+          <p>ChatBot</p>
+        </div>
+        <button id="closeChatBtn" onclick="closeChat()">✖️</button>
+      </header>
+      <main class="msger-chat" id="messages">
+        <div class="msg left-msg">
+          <div class="msg-img" style="background-image: url(./img/chatbot-1.png);"></div>
+          <div class="msg-bubble">
+            <div class="msg-info">
+              <div class="msg-info-name">BOT</div>
+              <div class="msg-time">10:45</div>
+            </div>
+            <div class="msg-text">
+              Hi, welcome to UVCLegal!
+            </div>
+          </div>
+        </div>
+      </main>
+      <form class="msger-inputarea">
+        <input type="text" class="msger-input" id="input" placeholder="Enter your message...">
+        <button type="submit" class="msger-send-btn"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+      </form>
+    </section>
+
+    <script src="./js/chatbot.js"></script>
+  </body>
+</html>
