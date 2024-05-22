@@ -67,3 +67,18 @@ $('.owl-temporal').owlCarousel({
   }
     }
 });
+
+
+// contact-link
+//document.getElementById("emailLink").addEventListener("click", function() {
+  //window.location.href = "mailto:uvcteamb2@gmail.com?subject=Enquiry&body=Hello%20UVCLegal%2C%0D%0A%0D%0AI%20would%20like%20to%20enquire%20about...";
+//});
+
+//document.getElementById("phoneLink").addEventListener("click", function() {
+//  window.location.href = "tel:+441332316601";
+//});
+
+//document.getElementById("whatsappLink").addEventListener("click", function() {
+ // window.location.href = "tel:+447404700760";
+//});
+

@@ -1141,7 +1141,7 @@ h2.accordion-header button {
 }
 
 .footer .copyright a:hover {
-  color: #121518;
+  color: blue;
 }
 
 
@@ -1221,6 +1221,21 @@ h2.accordion-header button {
 }
 
 
+/***********/
+/*** contact link CSS ***/
+/***********/
 
+/*
+.contact-link {
+  display: block;
+  margin: 10px 0;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
 
+.contact-link:hover {
+  text-decoration: underline;
+}
 
+*/
