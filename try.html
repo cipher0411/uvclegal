@@ -1,0 +1,193 @@
+<div>
+  <!-- Calendly Button and Instruction Text -->
+  <div class="mb-4 text-center">
+      <p>Please pick a date and time for consultation:</p>
+      <button class="btn btn-primary" id="schedule_button">Schedule time with me</button>
+  </div>
+
+  <form id="emailForm">
+      <div class="row g-4">
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="first_name" placeholder="Name"/>
+            <label for="first_name">First Name</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="last_name" placeholder="Name"/>
+            <label for="last_name">Last Name</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input  type="email"  class="form-control"  id="email"  placeholder="Email"/>
+            <label for="email">Your Email</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="phone" placeholder="Phone Number"/>
+            <label for="phone">Your Mobile</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="address" placeholder="Address"/>
+            <label for="address">Your Address</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="referral" placeholder="Referral"/>
+            <label for="referral">Referral Name</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <select class="form-select" id="consultation_type">
+              <option value="">Consultation Type</option>
+              <option value="settlement Visa" id="settlement">Settlement Visa</option>
+              <option value="family Visa">Family Visa</option>
+              <option value="business Visa">Business Visa</option>
+              <option value="student Visa">Student Visa</option>
+              <option value="temporal Visa">Temporal Visa</option>
+              <option value="visit Visa">Visit Visa</option>
+              <option value="work Visa">Work Visa</option>
+              <option value="other">Others</option>
+            </select>
+            <label for="consultation_type">Consultation Type</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <select class="form-select" id="service_type">
+              <option value="">Service Type</option>
+              <option value="standard">Standard</option>
+              <option value="premium">Premium</option>
+              <option value="diplomats">Diplomats</option>
+            </select>
+            <label for="service_type">Service Type</label>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 80px"></textarea>
+            <label for="message">Message</label>
+          </div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-brand" type="submit">Book Consultation</button>
+        </div>
+        <div class="col-12">
+          <input type="hidden" id="appointment_date">
+          <input type="hidden" id="appointment_time">
+        </div>
+      </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize EmailJS
+    emailjs.init("JVmbdCs5_CHkAXIN_");
+
+    // Function to handle Calendly pop-up
+    var scheduleButton = document.getElementById('schedule_button');
+    scheduleButton.addEventListener('click', function() {
+        Calendly.initPopupWidget({ url: 'https://calendly.com/cipherknight/consultation' });
+    });
+
+    // Listen for Calendly events
+    window.addEventListener('message', function(e) {
+        if (e.data.event === 'calendly.event_scheduled') {
+            var eventDetails = e.data.payload.event;
+            document.getElementById('appointment_date').value = eventDetails.start_time;
+            document.getElementById('appointment_time').value = eventDetails.end_time;
+        }
+    });
+
+    document.getElementById('emailForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form from submitting the default way
+
+        // Collect form data
+        var firstName = document.getElementById('first_name').value;
+        var lastName = document.getElementById('last_name').value;
+        var email = document.getElementById('email').value;
+        var phone = document.getElementById('phone').value;
+        var address = document.getElementById('address').value;
+        var referral = document.getElementById('referral').value;
+        var consultationType = document.getElementById('consultation_type').value;
+        var serviceType = document.getElementById('service_type').value;
+        var messageContent = document.getElementById('message').value;
+        var appointmentDate = document.getElementById('appointment_date').value;
+        var appointmentTime = document.getElementById('appointment_time').value;
+
+        // Check if any field is empty
+        if (!firstName || !lastName || !email || !phone || !address || !referral || !consultationType || !serviceType || !messageContent || !appointmentDate || !appointmentTime) {
+            // Display error message using SweetAlert
+            Swal.fire({
+                title: "Error!",
+                text: "Please fill out all fields.",
+                icon: "error"
+            });
+            return; // Stop further execution
+        }
+
+        // Set email parameters
+        var templateParams = {
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            phone: phone,
+            address: address,
+            referral: referral,
+            consultation_type: consultationType,
+            service_type: serviceType,
+            message: messageContent,
+            appointment_date: appointmentDate,
+            appointment_time: appointmentTime
+        };
+
+        // Send email using EmailJS
+        emailjs.send('service_nt1rh5a', 'template_bej59zo', templateParams)
+        .then(function(response) {
+            // Display success message using SweetAlert
+            Swal.fire({
+                title: "Success!",
+                text: "Consultation Booked successfully.",
+                icon: "success"
+            });
+
+            // Clear the form fields and reset placeholder
+            document.getElementById('first_name').value = '';
+            document.getElementById('last_name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('address').value = '';
+            document.getElementById('referral').value = '';
+            document.getElementById('consultation_type').value = '';
+            document.getElementById('service_type').value = '';
+            document.getElementById('message').value = '';
+            document.getElementById('appointment_date').value = '';
+            document.getElementById('appointment_time').value = '';
+        }, function(error) {
+            // Display error message using SweetAlert
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to book consultation: " + JSON.stringify(error),
+                icon: "error"
+            });
+        });
+    });
+});
+</script>
